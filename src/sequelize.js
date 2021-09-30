@@ -7,9 +7,14 @@ const VideoLikeModel = require('./models/VideoLike');
 const CommentModel = require('./models/Comment');
 const ViewModel = require('./models/View');
 
+pg.defaults.ssl = true;
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
     logging: false,
     dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false,
+        },
     },
 });
 (async () => await sequelize.sync({ alter: true }))();
